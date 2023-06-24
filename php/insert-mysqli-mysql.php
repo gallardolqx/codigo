@@ -12,17 +12,16 @@ if ($conn->connect_error) {
     die("La conexión falló: " . $conn->connect_error);
 }
 
-// Consulta SELECT
-$sql = "SELECT * FROM tu_tabla";
-$result = $conn->query($sql);
+// Datos a insertar
+$nombre = "John Doe";
+$email = "johndoe@example.com";
 
-if ($result->num_rows > 0) {
-    // Recorrer los resultados y mostrarlos
-    while ($row = $result->fetch_assoc()) {
-        echo "ID: " . $row["id"] . " - Nombre: " . $row["nombre"] . " - Email: " . $row["email"] . "<br>";
-    }
+// Consulta INSERT
+$sql = "INSERT INTO tu_tabla (nombre, email) VALUES ('$nombre', '$email')";
+if ($conn->query($sql) === TRUE) {
+    echo "Nuevo registro insertado correctamente";
 } else {
-    echo "No se encontraron resultados.";
+    echo "Error al insertar el registro: " . $conn->error;
 }
 
 // Cerrar la conexión

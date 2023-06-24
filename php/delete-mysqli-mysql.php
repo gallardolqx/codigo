@@ -12,17 +12,15 @@ if ($conn->connect_error) {
     die("La conexión falló: " . $conn->connect_error);
 }
 
-// Consulta SELECT
-$sql = "SELECT * FROM tu_tabla";
-$result = $conn->query($sql);
+// ID del registro a eliminar
+$id = 1;
 
-if ($result->num_rows > 0) {
-    // Recorrer los resultados y mostrarlos
-    while ($row = $result->fetch_assoc()) {
-        echo "ID: " . $row["id"] . " - Nombre: " . $row["nombre"] . " - Email: " . $row["email"] . "<br>";
-    }
+// Consulta DELETE
+$sql = "DELETE FROM tu_tabla WHERE id=$id";
+if ($conn->query($sql) === TRUE) {
+    echo "Registro eliminado correctamente";
 } else {
-    echo "No se encontraron resultados.";
+    echo "Error al eliminar el registro: " . $conn->error;
 }
 
 // Cerrar la conexión

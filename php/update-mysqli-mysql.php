@@ -12,17 +12,17 @@ if ($conn->connect_error) {
     die("La conexión falló: " . $conn->connect_error);
 }
 
-// Consulta SELECT
-$sql = "SELECT * FROM tu_tabla";
-$result = $conn->query($sql);
+// Datos para la actualización
+$id = 1;
+$nombre = "John Doe";
+$email = "johndoe@example.com";
 
-if ($result->num_rows > 0) {
-    // Recorrer los resultados y mostrarlos
-    while ($row = $result->fetch_assoc()) {
-        echo "ID: " . $row["id"] . " - Nombre: " . $row["nombre"] . " - Email: " . $row["email"] . "<br>";
-    }
+// Consulta UPDATE
+$sql = "UPDATE tu_tabla SET nombre='$nombre', email='$email' WHERE id=$id";
+if ($conn->query($sql) === TRUE) {
+    echo "Registro actualizado correctamente";
 } else {
-    echo "No se encontraron resultados.";
+    echo "Error al actualizar el registro: " . $conn->error;
 }
 
 // Cerrar la conexión
